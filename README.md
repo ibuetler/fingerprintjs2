@@ -19,7 +19,6 @@ docker-compose -f docker-compose.yml down
 ## Start and Stop using docker with traefik
 ```
 docker-compose -f docker-compose-traefik.yml build 
-docker network create fingerprint
 docker-compose -f docker-compose-traefik.yml up -d 
 docker-compose -f docker-compose-traefik.yml logs -f 
 ```
