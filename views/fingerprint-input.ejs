@@ -1,0 +1,20 @@
+<input type="hidden" id="fingerprint" name="fingerprint" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fingerprintjs2/2.0.6/fingerprint2.js"></script>
+<script>
+    function fingerprint() {
+        Fingerprint2.get(function (components) {
+            var values = components.map(function(component) {
+                return component.value
+            });
+            var hash = Fingerprint2.x64hash128(values.join(''), 31);
+            document.getElementById('fingerprint').value = hash;
+        });
+    }
+
+    if (window.requestIdleCallback) {
+        requestIdleCallback(fingerprint);
+    } else {
+        setTimeout(fingerprint, 500)
+    }
+</script>
