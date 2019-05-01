@@ -9,7 +9,8 @@ var userSchema = mongoose.Schema({
         email        : String,
         password     : String
     },
-    fingerprints: [String]
+    fingerprints: [String],
+    currentfp: String
 }, {
     usePushEach: true
 });
@@ -34,6 +35,11 @@ userSchema.methods.addFingerprint = function(fingerprint) {
     if (!this.hasFingerprint(fingerprint)) {
         this.fingerprints.push(fingerprint);
     }
+};
+
+// adding current fingerprint to user
+userSchema.methods.addCurrentFingerprint = function(fingerprint) {
+    this.currentfp=fingerprint;
 };
 
 // create the model for users and expose it to our app

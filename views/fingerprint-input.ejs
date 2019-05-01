@@ -4,9 +4,11 @@
 <script>
     function fingerprint() {
         Fingerprint2.get(function (components) {
+            console.log(components) // an array of components: {key: ..., value: ...}
             var values = components.map(function(component) {
                 return component.value
             });
+            var options = {fonts: {extendedJsFonts: true}, excludes: {userAgent: true}};
             var hash = Fingerprint2.x64hash128(values.join(''), 31);
             document.getElementById('fingerprint').value = hash;
         });

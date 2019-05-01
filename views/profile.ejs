@@ -28,8 +28,9 @@
                         <strong>id</strong>: <%= user._id %><br>
                         <strong>email</strong>: <%= user.local.email %><br>
                         <strong>password</strong>: <%= user.local.password %><br>
-                        <strong>fingerprints</strong>: <%= user.fingerprints.join(', ') %>
-                    </p>
+                        <strong>list of fingerprints</strong>: <%= user.fingerprints.join(', ') %><br>
+                        <strong>current fingerprint</strong>: <%= user.currentfp %><br>
+                                            </p>
 
                     <a href="/unlink/local" class="btn btn-default">Unlink</a>
                 <% } else { %>

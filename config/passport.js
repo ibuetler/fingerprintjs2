@@ -55,23 +55,35 @@ module.exports = function(passport) {
                 else {
                     let fingerprint = req.body.fingerprint;
                     if (fingerprint) {
+                        // check if this fingerprint has been seen before and if not, save the fingerprint to the history
                         if (user.hasFingerprint(fingerprint)) {
                             console.info('login: known fingerprint (' + fingerprint + ')');
-                            return done(null, user);
-                        } else {
-                            console.info('login: unknown fingerprint (' + fingerprint + ')');
-                            user.addFingerprint(fingerprint);
+                            
+                            // add fingerprint to current fingerprint
+                            console.info('login: saving current fingerprint to user.currentfp: ' + fingerprint);
+                            user.addCurrentFingerprint(fingerprint);
                             user.save(function (err) {
                                 if (err) {
                                     return done(err);
                                 }
                                 return done(null, user);
                             });
-                        }
+                        } else {
+                            console.info('login: unknown fingerprint (' + fingerprint + ')');
+                            user.addFingerprint(fingerprint);
+                            user.addCurrentFingerprint(fingerprint);
+                            user.save(function (err) {
+                                if (err) {
+                                    return done(err);
+                                }
+                                return done(null, user);
+                            });
+                        }; 
+
                     } else {
                         console.error('login: fingerprint missing');
                         return done(null, user);
-                    }
+                    }; 
                 }
 
             });
@@ -114,6 +126,9 @@ module.exports = function(passport) {
 
                         let fingerprint = req.body.fingerprint;
                         if (fingerprint) {
+                            // add fingerprint to current fingerprint
+                            console.info('signup: saving current fingerprint to user.currentfp: ' + fingerprint);
+                            newUser.addCurrentFingerprint(fingerprint);
                             newUser.addFingerprint(fingerprint);
                             console.info('signup: fingerprint (' + fingerprint + ')');
                         } else {
