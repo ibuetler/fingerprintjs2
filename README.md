@@ -18,7 +18,7 @@ docker-compose -f docker-compose.yml logs -f
 docker-compose -f docker-compose.yml down
 ```
 * Application: http://localhost:8080
-* Adminer: http://localhost:8181
+* Adminer: http://localhost:8081
 
 ## Start and Stop using docker with traefik (without adminer)
 ```
